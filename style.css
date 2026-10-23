@@ -98,13 +98,19 @@ button.ghost:hover{color:var(--ink);border-color:#cbd0d8}
 
 footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 20px 32px;display:flex;flex-direction:column;gap:6px}
 footer p{margin:0}
-footer .made{font-size:14px;color:var(--ink)}
-footer .made b{font-weight:650}
+footer .made{font-size:14px;color:var(--ink);display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap}
 footer .heart{display:inline-block;animation:beat 1.6s ease-in-out infinite}
-footer .links{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:2px}
 footer .pill{display:inline-flex;align-items:center;gap:7px;padding:6px 14px 6px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--ink);font-size:13px;font-weight:600;text-decoration:none;transition:border-color .15s,box-shadow .15s,transform .15s}
 footer .pill:hover{border-color:#cbd0d8;box-shadow:0 2px 8px rgba(0,0,0,.08);transform:translateY(-1px)}
 footer .pill svg{flex:none;display:block}
 footer .note{font-size:11.5px;opacity:.8}
 @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 @media(prefers-reduced-motion:reduce){footer .heart{animation:none}}
+
+/* conflict days in gaps */
+.gd.conflict{border-color:#fca5a5;background:var(--bad-soft)}
+.gd.conflict h3{color:var(--bad)}
+.gd.conflict h3 small{color:var(--bad)}
+.gd .warn{background:var(--bad);color:#fff;border-radius:8px;padding:6px 9px;font-size:12.5px;font-weight:600;margin:0 0 8px;line-height:1.35}
+.gd li.cls.clash{color:var(--bad)}
+.gd li.cls.clash span:first-child::before{content:"⚠ "}
