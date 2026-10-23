@@ -26,25 +26,17 @@
       <section class="card">
         <h2 id="formTitle">Add a course</h2>
         <form id="form" autocomplete="off">
-          <div class="row2">
-            <label>Course code
-              <input id="code" placeholder="CSE 2215" required />
+          <div class="row2 course-row">
+            <label>Course
+              <input id="code" placeholder="CSE 2215 or Data Structure" required />
             </label>
             <label>Section
               <input id="section" placeholder="A" required maxlength="4" />
             </label>
           </div>
-          <label>Course title <em>(optional)</em>
-            <input id="title" placeholder="Data Structure and Algorithms I" />
+          <label>Faculty
+            <input id="faculty" placeholder="Anika Tasnim Rodela" required />
           </label>
-          <div class="row2">
-            <label>Faculty <em>(optional)</em>
-              <input id="faculty" placeholder="Anika Tasnim Rodela" />
-            </label>
-            <label>Credit
-              <input id="credit" type="number" min="0" max="6" step="0.5" value="3" />
-            </label>
-          </div>
 
           <div class="field">
             <span class="lbl">Type</span>
@@ -98,7 +90,15 @@
     </section>
   </main>
 
-  <footer>Saved in your browser only · UIU class slots: 08:30–16:30, Sat/Sun/Tue/Wed</footer>
+  <footer>
+    <p class="made">Made with <span class="heart" aria-label="love">❤️</span> by <b>Rakib Hasan</b></p>
+    <p class="links">
+      <a href="mailto:sayhello.rakib@gmail.com">sayhello.rakib@gmail.com</a>
+      <span aria-hidden="true">·</span>
+      <a href="https://facebook.com/imrakibhasan" target="_blank" rel="noopener">facebook.com/imrakibhasan</a>
+    </p>
+    <p class="note">Saved in your browser only · UIU class slots: 08:30–16:30, Sat/Sun/Tue/Wed</p>
+  </footer>
   <script src="app.js"></script>
 </body>
 </html>
