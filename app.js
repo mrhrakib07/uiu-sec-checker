@@ -253,9 +253,12 @@
 
   // ---------- gaps ----------
   function renderGaps() {
+    const confs = allConflicts();
     $("gaps").innerHTML = DAYS.map(d => {
       const evs = courses.filter(c => c.days.includes(d)).map(c => ({ c, r: getRange(c) })).sort((a, b) => a.r[0] - b.r[0]);
       if (!evs.length) return `<div class="gd"><h3>${d}<small>no class</small></h3><ul><li class="off">Off day 🎉</li></ul></div>`;
+      const dayConf = confs.filter(x => x.days.includes(d));
+      const clashIds = new Set(dayConf.flatMap(x => [x.a.id, x.b.id]));
       const first = evs[0].r[0], last = Math.max(...evs.map(e => e.r[1]));
       const items = []; let cur = first;
       evs.forEach(ev => {
@@ -263,11 +266,14 @@
           const g = ev.r[0] - cur;
           items.push(`<li class="free ${g >= 80 ? "long" : ""}"><span>Gap ${fmt(cur)}–${fmt(ev.r[0])}</span><span>${dur(g)}</span></li>`);
         }
-        items.push(`<li class="cls"><span>${esc(ev.c.code)} ${esc(ev.c.section)}</span><span>${fmt(ev.r[0])}–${fmt(ev.r[1])}</span></li>`);
+        items.push(`<li class="cls ${clashIds.has(ev.c.id) ? "clash" : ""}"><span>${esc(ev.c.code)} ${esc(ev.c.section)}</span><span>${fmt(ev.r[0])}–${fmt(ev.r[1])}</span></li>`);
         cur = Math.max(cur, ev.r[1]);
       });
       const total = freeRanges(evs.map(e => e.r)).filter(g => g[0] >= first && g[1] <= last).reduce((s, g) => s + g[1] - g[0], 0);
-      return `<div class="gd"><h3>${d}<small>${fmt(first)}–${fmt(last)}${total ? " · " + dur(total) + " gap" : ""}</small></h3><ul>${items.join("")}</ul></div>`;
+      const warn = dayConf.length
+        ? `<div class="warn">⚠ Class conflict: ${dayConf.map(x => `${esc(label(x.a))} ↔ ${esc(label(x.b))}`).join(", ")}</div>`
+        : "";
+      return `<div class="gd ${dayConf.length ? "conflict" : ""}"><h3>${d}<small>${fmt(first)}–${fmt(last)}${total ? " · " + dur(total) + " gap" : ""}</small></h3>${warn}<ul>${items.join("")}</ul></div>`;
     }).join("");
   }
 
