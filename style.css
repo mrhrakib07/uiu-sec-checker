@@ -93,4 +93,16 @@ button.ghost:hover{color:var(--ink);border-color:#cbd0d8}
 .gd li.free.long{background:#f0fdf4;border-radius:6px;padding:2px 6px;margin:0 -6px}
 .gd li.off{color:var(--muted)}
 
-footer{text-align:center;color:var(--muted);font-size:12px;padding:6px 0 28px}
+.row2.course-row{grid-template-columns:1fr 90px}
+
+footer{text-align:center;color:var(--muted);font-size:12px;padding:10px 20px 32px;display:flex;flex-direction:column;gap:6px}
+footer p{margin:0}
+footer .made{font-size:14px;color:var(--ink)}
+footer .made b{font-weight:650}
+footer .heart{display:inline-block;animation:beat 1.6s ease-in-out infinite}
+footer .links{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;font-size:13px}
+footer .links a{color:var(--accent);text-decoration:none;font-weight:600}
+footer .links a:hover{text-decoration:underline}
+footer .note{font-size:11.5px;opacity:.8}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+@media(prefers-reduced-motion:reduce){footer .heart{animation:none}}
