@@ -7,9 +7,3 @@ Plan your UIU (UCAM) course sections: pick a section, day pattern and time, and 
 - Live conflict check while choosing a time, weekly timetable, per-day gaps
 - Edit / remove a course to swap sections quickly
 - Data is saved in your browser (localStorage)
-
-## Run locally
-Open `index.html` in a browser (no build step).
-
-## Deploy
-Push to GitHub → import the repo in Vercel → Framework preset: **Other** → Deploy.
