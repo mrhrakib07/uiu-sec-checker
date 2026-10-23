@@ -99,7 +99,6 @@
   $("typeSeg").addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     form.type = b.dataset.v; form.slot = 0;
-    if (!form.editId) $("credit").value = form.type === "lab" ? 1 : 3;
     renderForm();
   });
   $("daySeg").addEventListener("click", e => {
@@ -116,7 +115,6 @@
   function resetForm() {
     form.editId = null;
     $("form").reset();
-    $("credit").value = form.type === "lab" ? 1 : 3;
     $("formTitle").textContent = "Add a course";
     $("submitBtn").textContent = "Add course";
     $("cancelEdit").hidden = true;
@@ -126,15 +124,14 @@
 
   $("form").addEventListener("submit", e => {
     e.preventDefault();
-    const code = $("code").value.trim().toUpperCase().replace(/\s+/g, " ");
+    const code = $("code").value.trim().replace(/\s+/g, " ");
     const section = $("section").value.trim().toUpperCase();
-    if (!code || !section) return;
+    const faculty = $("faculty").value.trim();
+    if (!code || !section || !faculty) return;
     const draft = currentDraft();
     const data = {
-      code, section,
-      title: $("title").value.trim(),
-      faculty: $("faculty").value.trim(),
-      credit: parseFloat($("credit").value) || 0,
+      code, section, faculty,
+      credit: form.type === "lab" ? 1 : 3,
       type: form.type, slot: form.slot, days: draft.days,
     };
     if (form.editId) {
@@ -155,7 +152,7 @@
     $("emptyList").style.display = courses.length ? "none" : "block";
     $("courseList").innerHTML = courses.map(c => {
       const r = getRange(c);
-      const dup = courses.filter(x => x.code === c.code && x.type === c.type).length > 1;
+      const dup = courses.filter(x => x.code.toLowerCase() === c.code.toLowerCase() && x.type === c.type).length > 1;
       return `<li class="ci ${inConf.has(c.id) ? "hasconf" : ""}" style="border-left-color:${colorFor(c)}">
         <div class="body">
           <b>${esc(c.code)} · ${esc(c.section)}</b> <span class="muted">${c.type === "lab" ? "Lab" : "Theory"} · ${c.credit} cr</span>
@@ -182,8 +179,8 @@
     form.editId = id; form.type = c.type; form.slot = c.slot;
     if (c.type === "lab") form.labDay = c.days[0];
     else form.pair = PAIRS.findIndex(p => p[0] === c.days[0]);
-    $("code").value = c.code; $("section").value = c.section; $("title").value = c.title || "";
-    $("faculty").value = c.faculty || ""; $("credit").value = c.credit;
+    $("code").value = c.code; $("section").value = c.section;
+    $("faculty").value = c.faculty || "";
     $("formTitle").textContent = `Edit ${c.code}`;
     $("submitBtn").textContent = "Save changes";
     $("cancelEdit").hidden = false;
