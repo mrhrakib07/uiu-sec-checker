@@ -1,5 +1,7 @@
 (() => {
-  const DAYS = ["Sat", "Sun", "Tue", "Wed"];
+  const DAYS = ["Sat", "Sun", "Mon", "Tue", "Wed"];   // all days shown in timetable & gaps (Mon = lab only)
+  const LAB_DAYS = DAYS;                               // labs can be on any of these days
+  const THEORY_DAYS = ["Sat", "Sun", "Tue", "Wed"];    // theory uses PAIRS below (no Mon)
   const PAIRS = [["Sat", "Tue"], ["Sun", "Wed"]];
   const DAY_START = 8 * 60 + 30;   // 08:30
   const DAY_END = 16 * 60 + 30;    // 16:30
@@ -73,7 +75,7 @@
 
     const daySeg = $("daySeg");
     if (form.type === "lab") {
-      daySeg.innerHTML = DAYS.map(d => `<button type="button" data-day="${d}" class="${d === form.labDay ? "on" : ""}">${d}</button>`).join("");
+      daySeg.innerHTML = LAB_DAYS.map(d => `<button type="button" data-day="${d}" class="${d === form.labDay ? "on" : ""}">${d}</button>`).join("");
     } else {
       daySeg.innerHTML = PAIRS.map((p, i) => `<button type="button" data-pair="${i}" class="${i === form.pair ? "on" : ""}">${p[0]} + ${p[1]}</button>`).join("");
     }
